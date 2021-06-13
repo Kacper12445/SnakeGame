@@ -6,7 +6,7 @@ public class CreatedThread extends Thread{
 
     public CreatedThread(ThreadPool threadPoolParam)
     {
-        //Allocating new thread
+        /**Allocating new thread*/
         super(threadPoolParam, "PooledThread: " + threadID.getNextThreadID());
         this.threadPool = threadPoolParam;
     }
@@ -14,7 +14,7 @@ public class CreatedThread extends Thread{
     @Override
     public void run()
     {
-        //Checking if thread is interrupted
+        /**Checking if thread is interrupted*/
         while(!isInterrupted())
         {
             Runnable threadTask = null;

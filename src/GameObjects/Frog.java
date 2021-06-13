@@ -46,12 +46,7 @@ public class Frog extends FruitGenerator{
     //Starting movement of the snake using Runnable interface
     public Runnable createMovement(Rectangle snakeRect)
     {
-        Runnable tmpRunnable = new Runnable() {
-            @Override
-            public void run() {
-                move(snakeRect);
-            }
-        };
+        Runnable tmpRunnable = () -> move(snakeRect);
         return tmpRunnable;
     }
 

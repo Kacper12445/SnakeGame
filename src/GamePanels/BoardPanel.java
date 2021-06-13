@@ -134,7 +134,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
     }
     //Checking snake collision with the obstacles and with another snake head
-    //If conditions retunr true -> there is a collision
+    //If conditions return true -> there is a collision
     //The game is lost
     private void checkCollisions()
     {
@@ -171,13 +171,10 @@ public class BoardPanel extends JPanel implements ActionListener {
 
         //After loosing the game, we can see points and game over text for 1.5 sec
         Timer gameOverTimer = new Timer(1500, null);
-        gameOverTimer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameOverTimer.stop();
-                GameManager.saveScore(getScore());
-                GameManager.goToGameOverScreen();
-            }
+        gameOverTimer.addActionListener(e -> {
+            gameOverTimer.stop();
+            GameManager.saveScore(getScore());
+            GameManager.goToGameOverScreen();
         });
         gameOverTimer.start();
     }

@@ -101,11 +101,7 @@ public class SnakePlayer implements Runnable{
         {
             return false;
         }
-        if(getHeadX() < 0)
-        {
-            return false;
-        }
-        return true;
+        return getHeadX() >= 0;
     }
 
 

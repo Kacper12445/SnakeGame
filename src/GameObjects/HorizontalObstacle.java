@@ -1,6 +1,6 @@
 package GameObjects;
 
-import java.awt.*;
+
 
 public class HorizontalObstacle extends BoardObjects{
     HorizontalObstacle(){

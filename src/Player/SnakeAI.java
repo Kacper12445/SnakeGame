@@ -20,7 +20,6 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         add("X");
         add("X");
     }};
-    int index;
 
     public SnakeAI(List<BoardObjects> obstacles){
         mapObstacles = obstacles;
@@ -32,12 +31,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
     //The code executed by thread
     public Runnable createRunnable(int X, int Y)
     {
-        Runnable tempRunnable = new Runnable() {
-            @Override
-            public void run() {
-                move(X, Y);
-            }
-        };
+        Runnable tempRunnable = () -> move(X, Y);
         return tempRunnable;
     }
 
@@ -89,11 +83,11 @@ public class SnakeAI extends SnakePlayer implements Runnable{
             Rectangle obstacleRect = obstacle.getRectProps();
             if(snake.intersects(obstacleRect))
             {
-                return true;
+                return false;
 
             }
         }
-        return false;
+        return true;
     }
 
 
@@ -107,19 +101,19 @@ public class SnakeAI extends SnakePlayer implements Runnable{
 
 
         //Checking if there is an collision in different possible destinations
-        if(!ifCollision(mapObstacles, getHeadX()-GameValues.BoardUnitSize, getHeadY()))
+        if(ifCollision(mapObstacles, getHeadX() - GameValues.BoardUnitSize, getHeadY()))
         {
             distanceArr.add(left);
         }
-        if(!ifCollision(mapObstacles, getHeadX()+GameValues.BoardUnitSize, getHeadY()))
+        if(ifCollision(mapObstacles, getHeadX() + GameValues.BoardUnitSize, getHeadY()))
         {
             distanceArr.add(right);
         }
-        if(!ifCollision(mapObstacles, getHeadX(), getHeadY()-GameValues.BoardUnitSize))
+        if(ifCollision(mapObstacles, getHeadX(), getHeadY() - GameValues.BoardUnitSize))
         {
             distanceArr.add(up);
         }
-        if(!ifCollision(mapObstacles, getHeadX(), getHeadY()+GameValues.BoardUnitSize))
+        if(ifCollision(mapObstacles, getHeadX(), getHeadY() + GameValues.BoardUnitSize))
         {
             distanceArr.add(down);
         }
@@ -130,7 +124,6 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         //Checking if there is left destination in the array
         if(distanceArr.stream().anyMatch(x -> x == left))
         {
-            System.out.println(moveArr);
             //Checking if previous move was in the right direction
             if(rightDirection)
             {
@@ -139,7 +132,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
             }
             //Else we check if left direction is the shortest one
 
-            else if((distanceArr.indexOf(left) == 0) && moveArr.get(moveArr.size() - 1) != "Left")
+            else if((distanceArr.indexOf(left) == 0) && !moveArr.get(moveArr.size() - 1).equals("Left"))
             {
                 //If it is, we turn left
                 leftDirection = true;
@@ -156,7 +149,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
                 distanceArr.remove(right);
             }
 
-            else if((distanceArr.indexOf(right) == 0) && moveArr.get(moveArr.size() - 1) != "Right")
+            else if((distanceArr.indexOf(right) == 0) && !moveArr.get(moveArr.size() - 1).equals("Right"))
             {
                 leftDirection = false;
                 rightDirection = true;
@@ -172,7 +165,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
                 distanceArr.remove(up);
             }
 
-            else if((distanceArr.indexOf(up) == 0) && moveArr.get(moveArr.size() - 1) != "Up")
+            else if((distanceArr.indexOf(up) == 0) && !moveArr.get(moveArr.size() - 1).equals("Up"))
             {
                 leftDirection = false;
                 rightDirection = false;
@@ -189,7 +182,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
                 distanceArr.remove(down);
             }
 
-            else if((distanceArr.indexOf(down) == 0) && moveArr.get(moveArr.size() - 1) != "Down")
+            else if((distanceArr.indexOf(down) == 0) && !moveArr.get(moveArr.size() - 1).equals("Down"))
             {
                 leftDirection = false;
                 rightDirection = false;

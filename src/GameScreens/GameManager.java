@@ -13,37 +13,37 @@ public class GameManager extends JFrame {
     static FileCSV csv;
 
     public GameManager(){
-        //Initializing file variable
+        /**Initializing file variable*/
         csv = new FileCSV();
-        //Creating new panel as a card
+        /**Creating new panel as a card*/
         gamePanel = new JPanel(new CardLayout());
-        //Starting the game with homeScreen
+        /**Starting the game with homeScreen*/
         gamePanel.add(new HomeScreen());
         add(gamePanel);
 
-        //Setting game icon
+        /**Setting game icon*/
         setGameIcon();
-        //Setting game title
+        /**Setting game title*/
         setTitle("Snake");
-        //Set const size
+        /**Set const size*/
         setResizable(false);
-        //Exiting frame when user click close
+        /**Exiting frame when user click close*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Setting window game size
+        /**Setting window game size*/
         setPreferredSize(new Dimension(GameValues.BoardWidth, GameValues.BoardHeight));
-        //Fitting to preferred size
+        /**Fitting to preferred size*/
         pack();
-        //Starting window in the center of the screen
+        /**Starting window in the center of the screen*/
         setLocationRelativeTo(null);
     }
 
-    //Function sets game Icon
+    /**Function sets game Icon*/
     public void setGameIcon(){
         ImageIcon tmpIconImg = new ImageIcon("src/Assets/SnakeIcon.png");
         this.setIconImage(tmpIconImg.getImage());
     }
 
-    //Changing card to board
+    /**Changing card to board*/
     public static void playGame(){
         GameScreen gameBoard = new GameScreen();
         gamePanel.removeAll();
@@ -53,7 +53,7 @@ public class GameManager extends JFrame {
         gameBoard.setSnakePanelFocus();
     }
 
-    //Changing card to game over screen
+    /**Changing card to game over screen*/
     public static void goToGameOverScreen(){
         GameOverScreen gameOver = new GameOverScreen();
         gamePanel.removeAll();
@@ -63,7 +63,7 @@ public class GameManager extends JFrame {
         gameOver.requestFocusInWindow();
     }
 
-    //Changing card to leader board
+    /**Changing card to leader board*/
     public static void goToScoreScreen(){
         ScoresScreen leaderBoard = new ScoresScreen();
         gamePanel.removeAll();
@@ -74,16 +74,16 @@ public class GameManager extends JFrame {
         leaderBoard.requestFocusInWindow();
     }
 
-    //Getting scores from file
+    /**Getting scores from file*/
     public static ArrayList<ArrayList<String>> getLeaderBoard() {
         return csv.getParsedFile();
     }
-    //Saving scores to file
+    /**Saving scores to file*/
     public static void saveScore(int score){
         csv.saveScore(score, playerNick);
     }
 
-    //Running the game
+    /**Running the game*/
     public static void runGame(){
         EventQueue.invokeLater(()->{
             JFrame game = new GameManager();
