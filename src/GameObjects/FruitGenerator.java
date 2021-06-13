@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FruitGenerator extends BoardObjects{
 
-    //Loading fruit as a image
+    /**Loading fruit as a image*/
     public FruitGenerator(){
         loadImage("src/Assets/BoardFruit.png");
     }
@@ -22,7 +22,7 @@ public class FruitGenerator extends BoardObjects{
         image = loadedImage.getImage().getScaledInstance(10,10,Image.SCALE_DEFAULT);
     }
 
-    //Checking collision with obstacles
+    /**Checking collision with obstacles*/
     public boolean checkObstacleCollision(List<BoardObjects> obstacles)
     {
         for(BoardObjects obstacle: obstacles)
@@ -36,7 +36,7 @@ public class FruitGenerator extends BoardObjects{
         return false;
     }
 
-    //Function which locates objects on the board with in random area
+    /**Function which locates objects on the board with in random area*/
     public void putOnBoard(List<BoardObjects> obstacles)
     {
         positionX = randNumber(0, 61);
@@ -51,18 +51,18 @@ public class FruitGenerator extends BoardObjects{
     }
 
 
-    //Function which manages the case when snake eats the fruit
+    /**Function which manages the case when snake eats the fruit*/
     public void fruitEaten(SnakePlayer snake, SnakeAI snakeAI, List<BoardObjects> obstacles)
     {
-        //Checking if player snake head is in the same position as the fruit is.
+        /**Checking if player snake head is in the same position as the fruit is.*/
         if((snake.getHeadX() == this.getPosX()) && (snake.getHeadY() == this.getPosY()))
         {
-            // then snake grows
+            /** then snake grows*/
             snake.setBodyLength(snake.getBodyLength() + 1);
-            //Generating another one in random place
+            /**Generating another one in random place*/
             this.putOnBoard(obstacles);
         }
-        //If AI snake eats the fruit, generating another one
+        /**If AI snake eats the fruit, generating another one*/
         else if(((snakeAI.getHeadX() == this.getPosX()) && (snakeAI.getHeadY() == this.getPosY())))
         {
             snakeAI.setBodyLength(snakeAI.getBodyLength() + 1);

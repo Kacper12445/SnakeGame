@@ -5,20 +5,20 @@ import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 public class GameTime extends JLabel {
-    //Initializing timer and time variables
+    /**Initializing timer and time variables*/
     static long startTime;
     static long stopTime;
     static Timer timer;
 
     public GameTime()
     {
-        //Setting game timer in certain format
+        /**Setting game timer in certain format*/
         timer = new Timer(1000, event -> setText(String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - startTime),
                 TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - startTime) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - startTime)
                         ))));
-        //Showing the time as a text
+        /**Showing the time as a text*/
         showTime();
     }
 
@@ -30,7 +30,7 @@ public class GameTime extends JLabel {
     }
 
 
-    //Starting counting the time
+    /**Starting counting the time*/
     public static void startTimer(boolean ifGameRun)
     {
         if(!ifGameRun)
@@ -43,7 +43,7 @@ public class GameTime extends JLabel {
         timer.start();
     }
 
-    //Stopping the tim
+    /**Stopping timer*/
     public static void stopTimer()
     {
         stopTime = System.currentTimeMillis();

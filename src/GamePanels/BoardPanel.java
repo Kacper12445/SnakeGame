@@ -35,7 +35,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     private Image controllerImg;
 
     public BoardPanel(){
-        //Creating objects
+        /**Creating objects*/
         fruit = new FruitGenerator();
         frog = new Frog();
         map = new MapBuilder();
@@ -47,7 +47,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         threadPool = new ThreadPool(5);
 
 
-        //Starting the game when arrow keys are clicked
+        /**Starting the game when arrow keys are clicked*/
         startAdapter = new KeyAdapter()
         {
             @Override
@@ -57,10 +57,12 @@ public class BoardPanel extends JPanel implements ActionListener {
                 int event = e.getKeyCode();
                 if(event == KeyEvent.VK_UP || event == KeyEvent.VK_DOWN || event == KeyEvent.VK_LEFT || event == KeyEvent.VK_RIGHT)
                 {
+                    /**Removing ket listener for starting game and starting using arrow keys to move the snake*/
                     removeKeyListener(startAdapter);
                     remove(controllerImgLabel);
                     remove(controllerText);
                     addKeyListener(player.getSnakeEventControl());
+                    /**Putting fruit and frog on board*/
                     fruit.putOnBoard(map.getObstacles());
                     frog.putOnBoard(map.getObstacles());
 
@@ -71,7 +73,7 @@ public class BoardPanel extends JPanel implements ActionListener {
             }
         };
 
-        //Resuming the game (pause situation, to resume we need to click "r"
+        /**Resuming the game (pause situation, to resume we need to click "r"*/
         resumeAdapter = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e)
@@ -119,7 +121,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         add(controllerText);
     }
 
-    //Drawing objects on the map
+    /**Drawing objects on the map*/
     private void drawObjects(Graphics g)
     {
         if(gameIsRunning)
@@ -133,9 +135,9 @@ public class BoardPanel extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
         }
     }
-    //Checking snake collision with the obstacles and with another snake head
-    //If conditions return true -> there is a collision
-    //The game is lost
+    /**Checking snake collision with the obstacles and with another snake head
+    If conditions return true -> there is a collision
+    The game is lost*/
     private void checkCollisions()
     {
         Rectangle snake = player.getHeadPos();
@@ -149,7 +151,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
     }
 
-    //Game over text
+    /**Game over text*/
     private void gameOver(){
         JLabel gameOverText = new JLabel("Game Over");
         gameOverText.setBounds(220, 225, 700, 80);
@@ -169,7 +171,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         scoreAIText.setForeground(Color.white);
         add(scoreAIText);
 
-        //After loosing the game, we can see points and game over text for 1.5 sec
+        /**After loosing the game, we can see points and game over text for 1.5 sec*/
         Timer gameOverTimer = new Timer(1500, null);
         gameOverTimer.addActionListener(e -> {
             gameOverTimer.stop();
@@ -179,13 +181,13 @@ public class BoardPanel extends JPanel implements ActionListener {
         gameOverTimer.start();
     }
 
-    //Pausing the game
+    /**Pausing the game*/
     public void pauseGame(){
         if(!timer.isRunning())
         {
             return;
         }
-        //Stopping the time while it's paused
+        /**Stopping the time while it's paused*/
         timer.stop();
         GameTime.stopTimer();
         removeKeyListener(player.getSnakeEventControl());
@@ -207,7 +209,7 @@ public class BoardPanel extends JPanel implements ActionListener {
     }
 
 
-    //Resuming the game
+    /**Resuming the game*/
     public void resumeGame(){
         //Starting stopped time
         timer.start();

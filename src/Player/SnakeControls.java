@@ -9,7 +9,7 @@ public class SnakeControls extends KeyAdapter {
     private boolean up = false;
     private boolean down = false;
 
-    //Getting access to variables
+    /**Getting access to variables*/
     public boolean getLeft()
     {
         return left;
@@ -27,7 +27,7 @@ public class SnakeControls extends KeyAdapter {
         return down;
     }
 
-    //Controlling the snake depending on clicked array key
+    /**Controlling the snake depending on clicked array key*/
     @Override
     public void keyPressed(KeyEvent event)
     {

@@ -25,24 +25,24 @@ public class SnakePlayer implements Runnable{
         loadImages("src/Assets/SnakeHead.png", "src/Assets/SnakeBody.png");
     }
 
-    //Give access to position X of snake head
+    /**Give access to position X of snake head*/
     public int getHeadX()
     {
         return x[0];
     }
-    //Give access to position Y of snake head
+    /**Give access to position Y of snake head*/
     public int getHeadY()
     {
         return y[0];
     }
 
-    //Returning length of the snake
+    /**Returning length of the snake*/
     public int getBodyLength()
     {
         return bodyLength;
     }
 
-    //Returning head position
+    /**Returning head position*/
     public Rectangle getHeadPos()
     {
         return new Rectangle(getHeadX(), getHeadY(), GameValues.SnakeElementSize, GameValues.SnakeElementSize);
@@ -52,7 +52,7 @@ public class SnakePlayer implements Runnable{
         return snakeControl;
     }
 
-    //Loading snake body as a img
+    /**Loading snake body as a img*/
     public void loadImages(String headImgPath, String bodyImgPath)
     {
         ImageIcon tempBody = new ImageIcon(bodyImgPath);
@@ -62,7 +62,7 @@ public class SnakePlayer implements Runnable{
         headImage = tempHead.getImage();
     }
 
-    //Initializing snake
+    /**Initializing snake*/
     public void createSnake(int snakeLength, int coordX, int coordY)
     {
         bodyLength = snakeLength;
@@ -73,7 +73,7 @@ public class SnakePlayer implements Runnable{
         }
     }
 
-    //Reports an bound property update to listeners that have been registered to track updates of all properties or a property with the specified name.
+    /**Reports an bound property update to listeners that have been registered to track updates of all properties or a property with the specified name.*/
     public void setBodyLength(int bodyPartNumberParam)
     {
         int oldSnakeLength = this.bodyLength;
@@ -81,7 +81,7 @@ public class SnakePlayer implements Runnable{
         snakeChanges.firePropertyChange("bodyLength", oldSnakeLength, this.bodyLength);
     }
 
-    //Checking if snake touches board border
+    /**Checking if snake touches board border*/
     public boolean checkBoardCollision()
     {
         for(int i = bodyLength; i > 0; i--)
@@ -105,7 +105,7 @@ public class SnakePlayer implements Runnable{
     }
 
 
-    //Simulating and controlling snake by player
+    /**Simulating and controlling snake by player*/
     @Override
     public void run()
     {
@@ -133,7 +133,7 @@ public class SnakePlayer implements Runnable{
     }
 
 
-    //Drawing player snake
+    /**Drawing player snake*/
     public void drawSnake(Graphics g, BoardPanel board)
     {
         //Drawing snake head
@@ -146,6 +146,7 @@ public class SnakePlayer implements Runnable{
         }
     }
 
+    /**Listening for changes*/
     public void addPropertyChangeListener(PropertyChangeListener bean)
     {
         snakeChanges.addPropertyChangeListener(bean);

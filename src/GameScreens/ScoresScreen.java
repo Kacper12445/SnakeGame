@@ -13,13 +13,13 @@ public class ScoresScreen extends JPanel{
 
 
     public ScoresScreen(){
-        //Getting scores and nicks list
+        /**Getting scores and nicks list*/
         scoresBoard = GameManager.getLeaderBoard();
-        //Absolute positioning
+        /**Absolute positioning*/
         setLayout(null);
-        //Assigning image to variable
+        /**Assigning image to variable*/
         loadImages();
-        //Setting background color of the screen
+        /**Setting background color of the screen*/
         setBackground(new Color(70, 180, 190));
         buildScreen();
     }
@@ -30,35 +30,35 @@ public class ScoresScreen extends JPanel{
     }
 
     private void buildScreen(){
-        //Adding cup picture to screen
+        /**Adding cup picture to screen*/
         JLabel pic = new JLabel(new ImageIcon(cupImg));
-        //Setting size and position of img
+        /**Setting size and position of img*/
         pic.setBounds(30,300 , GameValues.CupX, GameValues.CupY);
-        //Adding to panel
+        /**Adding to panel*/
         add(pic);
 
-        //Creating text object
+        /**Creating text object*/
         JLabel boardTitle = new JLabel("Best score rank");
-        //Setting foreground color
+        /**Setting foreground color*/
         boardTitle.setForeground(Color.YELLOW);
-        //Setting font style of the text
+        /**Setting font style of the text*/
         boardTitle.setFont(new Font("Roboto", Font.BOLD, 85));
-        //Setting size and position of the text
+        /**Setting size and position of the text*/
         boardTitle.setBounds(100,55,750,100);
-        //Adding to panel
+        /**Adding to panel*/
         add(boardTitle);
 
-        //Showing players score
+        /**Showing players score*/
         for(int i = 0; i < scoresBoard.size(); ++i)
         {
-            //Showing players nick
+            /**Showing players nick*/
             JLabel playerNick = new JLabel(scoresBoard.get(i).get(0));
             playerNick.setForeground(Color.GREEN);
             playerNick.setFont(new Font("Roboto", Font.BOLD, 40));
             playerNick.setBounds(310, 200 + 60 * i, 400, 150);
             add(playerNick);
 
-            //Showing players points
+            /**Showing players points*/
             JLabel playerPoints = new JLabel(scoresBoard.get(i).get(1));
             playerPoints.setForeground(Color.GREEN);
             playerPoints.setFont(new Font("Roboto", Font.BOLD, 40));
@@ -66,17 +66,17 @@ public class ScoresScreen extends JPanel{
             add(playerPoints);
         }
 
-        //Button which allows us to go back to previous card
+        /**Button which allows us to go back to previous card*/
         JButton startButton = new JButton("Go back");
-        //Setting position and size
+        /**Setting position and size*/
         startButton.setBounds(240,625,320,100);
-        //Setting button background color
+        /**Setting button background color*/
         startButton.setBackground(new Color(95, 70, 205));
-        //Don't focus
+        /**Don't focus*/
         startButton.setFocusable(false);
-        //Reacting on click if clicked go to game over screen
+        /**Reacting on click if clicked go to game over screen*/
         startButton.addActionListener(event-> GameManager.goToGameOverScreen());
-        //Adding button to panel
+        /**Adding button to panel*/
         add(startButton);
 
     }

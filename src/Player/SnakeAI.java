@@ -28,30 +28,30 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         loadImages("src/Assets/SnakeHeadAI.png", "src/Assets/SnakeBodyAI.png");
     }
 
-    //The code executed by thread
+    /**The code executed by thread*/
     public Runnable createRunnable(int X, int Y)
     {
         Runnable tempRunnable = () -> move(X, Y);
         return tempRunnable;
     }
 
-    //Directions selected
-    //Used to pass information to snake in which direction it should move
-    //Used also to check what was previous move of the snake
+    /**Directions selected
+    Used to pass information to snake in which direction it should move
+    Used also to check what was previous move of the snake*/
     private boolean leftDirection = false;
     private boolean rightDirection = false;
     private boolean upDirection = false;
     private boolean downDirection = false;
 
 
-    //Changing head position (snake move)
+    /**Changing head position (snake move)*/
     public void goRight(){x[0] += GameValues.BoardUnitSize;}
     public void goLeft(){x[0] -= GameValues.BoardUnitSize;}
     public void goTop(){y[0] -= GameValues.BoardUnitSize;}
     public void goBot(){y[0] += GameValues.BoardUnitSize;}
 
 
-    //Simulating snake move by using function which shows the path to fruit
+    /**Simulating snake move by using function which shows the path to fruit*/
     public void move(int fruitPosX, int fruitPosY){
         for(int i = getBodyLength(); i > 0; i--)
         {
@@ -75,7 +75,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
 
     }
 
-    //Checking snakeAI head collision with board obstacles
+    /**Checking snakeAI head collision with board obstacles*/
     public boolean ifCollision(List<BoardObjects> mapObstacles, int positionX, int positionY){
         Rectangle snake = new Rectangle(positionX,positionY,10,10);
         for(BoardObjects obstacle : mapObstacles)
@@ -91,8 +91,8 @@ public class SnakeAI extends SnakePlayer implements Runnable{
     }
 
 
-    //Function controlling the snake
-    //It's decides where snake should go and where it shouldn't
+    /**Function controlling the snake
+    It's decides where snake should go and where it shouldn't*/
     public void createPath(int fruitPosX, int fruitPosY){
         double left = CountDistanceFromFood(fruitPosX,fruitPosY,getHeadX()-GameValues.BoardUnitSize,getHeadY());
         double right = CountDistanceFromFood(fruitPosX,fruitPosY,getHeadX()+GameValues.BoardUnitSize,getHeadY());
@@ -100,7 +100,7 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         double down = CountDistanceFromFood(fruitPosX,fruitPosY,getHeadX(),getHeadY()+GameValues.BoardUnitSize);
 
 
-        //Checking if there is an collision in different possible destinations
+        /**Checking if there is an collision in different possible destinations*/
         if(ifCollision(mapObstacles, getHeadX() - GameValues.BoardUnitSize, getHeadY()))
         {
             distanceArr.add(left);
@@ -118,23 +118,23 @@ public class SnakeAI extends SnakePlayer implements Runnable{
             distanceArr.add(down);
         }
 
-        //Sorting array to know which destination creates the path which is the shortest one
+        /**Sorting array to know which destination creates the path which is the shortest one*/
         Collections.sort(distanceArr);
 
-        //Checking if there is left destination in the array
+        /**Checking if there is left destination in the array*/
         if(distanceArr.stream().anyMatch(x -> x == left))
         {
-            //Checking if previous move was in the right direction
+            /**Checking if previous move was in the right direction*/
             if(rightDirection)
             {
-                //If it was, we don't want to turn left
+                /**If it was, we don't want to turn left*/
                 distanceArr.remove(left);
             }
-            //Else we check if left direction is the shortest one
+            /**Else we check if left direction is the shortest one*/
 
             else if((distanceArr.indexOf(left) == 0) && !moveArr.get(moveArr.size() - 1).equals("Left"))
             {
-                //If it is, we turn left
+                /**If it is, we turn left*/
                 leftDirection = true;
                 rightDirection = false;
                 upDirection = false;
@@ -176,7 +176,6 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         }
         if(distanceArr.stream().anyMatch(x -> x== down))
         {
-            System.out.println(moveArr);
             if(upDirection)
             {
                 distanceArr.remove(down);
@@ -196,11 +195,11 @@ public class SnakeAI extends SnakePlayer implements Runnable{
         {
             moveArr.remove(0);
         }
-        //Clearing array
+        /**Clearing array*/
         distanceArr.clear();
     }
 
-    //Counting vector length from ai snake head to fruit
+    /**Counting vector length from ai snake head to fruit*/
     public double CountDistanceFromFood(int foodX, int foodY, int headX, int headY){
         return distanceFromFruit = Math.sqrt(Math.pow((foodX-headX),2) + Math.pow((foodY-headY), 2));
     }

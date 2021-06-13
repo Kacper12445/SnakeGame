@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Frog extends FruitGenerator{
 
-    //Loading image in constructor
+    /**Loading image in constructor*/
     public Frog()
     {
         loadImage("src/Assets/BoardFrog.png");
     }
 
-    //Functions which are used to move frog
-    //Move is considered as a position change
+    /**Functions which are used to move frog
+    Move is considered as a position change*/
     private void goLeft(){
         positionX -= 10;
     }
@@ -28,8 +28,8 @@ public class Frog extends FruitGenerator{
         positionY -= 10;
     }
 
-    //Choosing random location for frog when game starts
-    //Position doesn't locate the object in the place where obstacle is located
+    /**Choosing random location for frog when game starts
+    Position doesn't locate the object in the place where obstacle is located*/
     @Override
     public void putOnBoard(List<BoardObjects> obstacles)
     {
@@ -43,14 +43,14 @@ public class Frog extends FruitGenerator{
         }
     }
 
-    //Starting movement of the snake using Runnable interface
+    /**Starting movement of the snake using Runnable interface*/
     public Runnable createMovement(Rectangle snakeRect)
     {
         Runnable tmpRunnable = () -> move(snakeRect);
         return tmpRunnable;
     }
 
-    //Algorithm which chose the way how frog should move
+    /**Algorithm which chose the way how frog should move*/
     public void move(Rectangle snakeRectangle)
     {
         int randomNumber = randNumber(0, 3)/10;
@@ -63,9 +63,9 @@ public class Frog extends FruitGenerator{
         chaseFromUp(snakeRectangle, randomNumber);
     }
 
-//Checking if the snake is coming from bot then its running in all ways but except bot
-// As a warn area there is set rectangle 300 width and 150 height
-//The frog move is random but there is checked a place where it is in case frog would like to run from the board
+/**Checking if the snake is coming from bot then its running in all ways but except bot
+ As a warn area there is set rectangle 300 width and 150 height
+The frog move is random but there is checked a place where it is in case frog would like to run from the board*/
     private void chaseFromDown(Rectangle snakeRectangle, int randomNumber)
     {
         if(snakeRectangle.intersects(positionX, positionY + 100, 300, 150))
@@ -89,9 +89,9 @@ public class Frog extends FruitGenerator{
         }
     }
 
-//While snake comes from left ,Top -> frog jumps in random place except top
-    // As a warn area there is set rectangle 300 width and 150 height
-    //The frog move is random but there is checked a place where it is in case frog would like to run from the board
+/**While snake comes from left ,Top -> frog jumps in random place except top
+     As a warn area there is set rectangle 300 width and 150 height
+    The frog move is random but there is checked a place where it is in case frog would like to run from the board*/
     private void chaseFromUp(Rectangle snakeRectangle, int randomNumber)
     {
         if(snakeRectangle.intersects(positionX, positionY-150, 300, 150)) {
